@@ -23,7 +23,7 @@ function Result(props) {
   const saveAttempt = () => {
     let setTime = new Date();
     let result = {
-      date: `${setTime.toDateString()} ${setTime.toTimeString()}`,
+      date: `${setTime.toDateString()} ${setTime.toLocaleTimeString()}`,
       score: `${props.data.correct}/${props.data.total}`,
     };
 
