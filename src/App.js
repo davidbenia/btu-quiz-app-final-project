@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Quiz from "./components/Quiz";
+import History from "./components/History";
 
 function App() {
   return (
@@ -15,6 +16,13 @@ function App() {
             >
               Quiz
             </Link>
+            <Link
+              style={{ textDecoration: "none" }}
+              className="p-2 rounded-md text-3xl hover:bg-gray-200 bg-gray-400 text-white"
+              to="/history"
+            >
+              History
+            </Link>
           </nav>
         </div>
       </div>
@@ -22,6 +30,7 @@ function App() {
       <div className="Content">
         <Routes>
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </div>
     </div>
