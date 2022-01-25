@@ -21,7 +21,7 @@ function Result(props) {
   };
 
   const saveAttempt = () => {
-    let setTime = new Date();
+    let setTime = new Date().toDateString();
     let result = {
       date: setTime,
       score: `${props.data.correct}/${props.data.total}`,
