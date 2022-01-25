@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Oval } from "react-loader-spinner";
+import { ProgressBar } from "react-bootstrap";
 import useQuiz from "../api/useQuiz";
 import SingleQuest from "../Questions/Single";
 import MultiQuest from "../Questions/Multi";
@@ -20,12 +21,12 @@ function Quiz() {
     if (questIter < questAmount.current - 1) setQuestIter(questIter + 1);
     else {
       setSeeResult(true);
-      setQuestIter(0);
     }
   };
 
   const toggleResult = () => {
     setSeeResult(!seeResult);
+    setQuestIter(0);
   };
 
   if (questions.isLoading || questions.data == null) {
@@ -34,42 +35,43 @@ function Quiz() {
         <Oval />
       </div>
     );
-  } else if (!seeResult) {
-    let currentQuestion = questions.data[questIter];
-
-    switch (currentQuestion.type) {
-      case "single":
-        return (
-          <SingleQuest
-            question={currentQuestion.question}
-            answer={currentQuestion.answer}
-            method={incrementQuestIter}
-          />
-        );
-
-      case "multiple":
-        return (
-          <MultiQuest
-            question={currentQuestion.question}
-            answer={currentQuestion.answer}
-            method={incrementQuestIter}
-          />
-        );
-
-      case "boolean":
-        return (
-          <BoolQuest
-            question={currentQuestion.question}
-            answer={currentQuestion.answer}
-            method={incrementQuestIter}
-          />
-        );
-
-      default:
-        return null;
-    }
   } else {
-    return <QuestResult method={toggleResult} />;
+    let currentQuestion = questions.data[questIter];
+    let progress = (questIter / (questAmount.current - 1)) * 100;
+
+    return (
+      <div className="Content">
+        <div className="Question">
+          {seeResult ? (
+            <QuestResult method={toggleResult} />
+          ) : currentQuestion.type == "single" ? (
+            <SingleQuest
+              question={currentQuestion.question}
+              answer={currentQuestion.answer}
+              method={incrementQuestIter}
+            />
+          ) : currentQuestion.type == "multiple" ? (
+            <MultiQuest
+              question={currentQuestion.question}
+              answer={currentQuestion.answer}
+              method={incrementQuestIter}
+            />
+          ) : currentQuestion.type == "boolean" ? (
+            <BoolQuest
+              question={currentQuestion.question}
+              answer={currentQuestion.answer}
+              method={incrementQuestIter}
+            />
+          ) : null}
+        </div>
+
+        {!seeResult ? (
+          <div className="Progress">
+            <ProgressBar now={progress} label={`${progress}%`} />
+          </div>
+        ) : null}
+      </div>
+    );
   }
 }
 
