@@ -22,6 +22,7 @@ const useQuiz = () => {
             questions.push({
               type: item.type,
               question: item.question,
+              options: item.options,
               answer: response.data.answers[index].answer,
             });
           });
