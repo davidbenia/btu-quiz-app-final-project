@@ -21,9 +21,9 @@ function Result(props) {
   };
 
   const saveAttempt = () => {
-    let setTime = new Date().toDateString();
+    let setTime = new Date();
     let result = {
-      date: setTime,
+      date: `${setTime.toDateString()} ${setTime.toTimeString()}`,
       score: `${props.data.correct}/${props.data.total}`,
     };
 
@@ -33,8 +33,10 @@ function Result(props) {
     if (attemptHistory) {
       temp = JSON.parse(attemptHistory);
       temp.push(result);
-      localStorage.setItem("attempts", temp);
-    } else localStorage.setItem("attempts", JSON.stringify([result]));
+      localStorage.setItem("attempts", JSON.stringify(temp));
+    } else {
+      localStorage.setItem("attempts", JSON.stringify([result]));
+    }
 
     process();
   };
