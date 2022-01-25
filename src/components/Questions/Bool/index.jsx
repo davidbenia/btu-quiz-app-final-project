@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function Bool(props) {
+  const [btnStyle, setBtnStyle] = useState(null);
   const [selected, setSelected] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
 
@@ -13,8 +14,9 @@ function Bool(props) {
 
     if (selected == props.answer.toString()) {
       props.method2();
+      setBtnStyle("green");
     } else {
-      console.log("wrong");
+      setBtnStyle("red");
     }
   };
 
@@ -46,7 +48,11 @@ function Bool(props) {
       </div>
 
       {selectedAnswer ? (
-        <button className="text-3xl text-white" onClick={props.method1}>
+        <button
+          className="text-3xl text-white p-1 px-2 rounded mt-5"
+          onClick={props.method1}
+          style={{ backgroundColor: btnStyle }}
+        >
           Next
         </button>
       ) : (

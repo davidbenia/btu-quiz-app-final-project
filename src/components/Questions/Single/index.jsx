@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function Single(props) {
+  const [btnStyle, setBtnStyle] = useState(null);
   const [selected, setSelected] = useState({
     idx: null,
     value: null,
@@ -19,9 +20,10 @@ function Single(props) {
     setSelectedAnswer(true);
 
     if (selected.value == props.answer) {
+      setBtnStyle("green");
       props.method2();
     } else {
-      console.log("wrong");
+      setBtnStyle("red");
     }
   };
 
@@ -48,7 +50,11 @@ function Single(props) {
       </div>
 
       {selectedAnswer ? (
-        <button className="text-3xl text-white" onClick={props.method1}>
+        <button
+          className="text-3xl text-white p-1 px-2 rounded mt-5"
+          onClick={props.method1}
+          style={{ backgroundColor: btnStyle }}
+        >
           Next
         </button>
       ) : (

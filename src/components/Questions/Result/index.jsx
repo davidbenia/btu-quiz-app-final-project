@@ -44,7 +44,7 @@ function Result(props) {
   return (
     <div>
       {open && (
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-5">
           <div className="bg-green-400 p-2 rounded-md text-white text-4xl">
             <p>Do you want to save this attempt?</p>
             <div className="flex gap-x-10 justify-center">
